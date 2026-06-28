@@ -1,0 +1,4 @@
+# This project is a Next.js/TypeScript app and does not require Python packages.
+# Runtime dependencies are managed in package.json/package-lock.json.
+# Conda environment used locally:
+#   conda create -n rag-agent-vercel nodejs=24.13.0
