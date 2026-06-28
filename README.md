@@ -1,4 +1,6 @@
-# Vercel RAG Agent
+# Vercel RAG Agent made by
+
+## ROSHAN G
 
 A simple file-based RAG assistant built with Next.js, TypeScript, and OpenRouter. Upload supported files, ask a question, and the app retrieves relevant chunks before sending a grounded prompt to a GPT mini model.
 
@@ -57,33 +59,6 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
-## Scripts
-
-```powershell
-npm run dev
-npm test
-npm run lint
-npm run build
-```
-
-## Deployment on Vercel
-
-1. Push the project to GitHub.
-2. Import the GitHub repo in Vercel.
-3. Add environment variables in Vercel Project Settings:
-   - `OPENROUTER_API_KEY`
-   - `OPENROUTER_MODEL` such as `openai/gpt-4o-mini`
-   - `NEXT_PUBLIC_APP_URL` with your deployed URL
-4. Deploy.
-
-You can also deploy from the CLI:
-
-```powershell
-npx vercel
-npx vercel env add OPENROUTER_API_KEY production
-npx vercel env add OPENROUTER_MODEL production
-npx vercel --prod
-```
 
 ## Notes
 
