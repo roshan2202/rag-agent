@@ -17,6 +17,18 @@ type ConversationMessage = ChatMessage & {
 
 const acceptedTypes = ".txt,.md,.markdown,.csv,.json,.pdf,.docx";
 
+async function readJsonResponse(response: Response) {
+  const contentType = response.headers.get("content-type") ?? "";
+
+  if (contentType.includes("application/json")) {
+    return response.json();
+  }
+
+  const text = await response.text();
+  const fallback = response.ok ? "The server returned an unexpected response." : `Request failed with status ${response.status}.`;
+  throw new Error(text.trim().startsWith("<!DOCTYPE") ? `${fallback} Check the deployment logs.` : text || fallback);
+}
+
 export default function Home() {
   const [documents, setDocuments] = useState<SourceDocument[]>([]);
   const [messages, setMessages] = useState<ConversationMessage[]>([]);
@@ -47,7 +59,7 @@ export default function Home() {
         method: "POST",
         body: formData,
       });
-      const payload = await response.json();
+      const payload = await readJsonResponse(response);
 
       if (!response.ok) {
         throw new Error(payload.error ?? "Upload failed.");
@@ -90,7 +102,7 @@ export default function Home() {
           messages: messages.slice(-6),
         }),
       });
-      const payload = await response.json();
+      const payload = await readJsonResponse(response);
 
       if (!response.ok) {
         throw new Error(payload.error ?? "The model could not answer.");

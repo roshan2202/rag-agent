@@ -1,5 +1,3 @@
-import mammoth from "mammoth";
-import { PDFParse } from "pdf-parse";
 import { normalizeText } from "./chunk";
 import type { SourceDocument } from "./types";
 
@@ -21,6 +19,7 @@ function safeId(name: string, index: number) {
 }
 
 async function parsePdf(buffer: Buffer) {
+  const { PDFParse } = await import("pdf-parse");
   const parser = new PDFParse({ data: buffer });
   const result = await parser.getText();
   await parser.destroy();
@@ -28,6 +27,7 @@ async function parsePdf(buffer: Buffer) {
 }
 
 async function parseDocx(buffer: Buffer) {
+  const mammoth = await import("mammoth");
   const result = await mammoth.extractRawText({ buffer });
   return result.value;
 }
